@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>OCB</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}"/>
+	</head>  
+	
+	
+	<body>
+		<div id="stage">
+		<canvas id="canvas"> </canvas>
+		<div id="conversation" class="container-fluid h-100 overlay">
+			<div class="row justify-content-center h-100">		
+				<div class="col-md-8 col-xl-6 chat">
+					<div class="card scroller">
+						<div class="card-header msg_head">
+							<div class="d-flex bd-highlight">
+								<div class="img_cont">
+									<img src="{{ url_for('static',filename='img/logo.jpeg')}}" class="user_img">
+								</div>
+							</div>
+						</div>
+						<div id="messageFormeight" class="card-body msg_card_body fortxt" >
+							
+							<div id="anchor"></div>
+						</div>
+						<div class="card-footer"> 
+							<button type="button" class="input-group-text button-action clear-chat-btn ade" title="Clear Chat"><i class="far fa-trash-alt"></i></button>
+							<button type="submit" id="send" class="input-group-text button-action ade" title="Download Chat"><i class="fas fa-download"></i></button>
+							 
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+								  <div class="modal-content">
+									<div class="modal-header">
+									  <h5 class="modal-title" id="exampleModalLabel">Feedback Form</h5>
+									  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									  </button>
+									</div>
+									<div class="modal-body">
+									
+									</div>
+								  </div>
+								</div>
+							  </div>
+							<form id="messageArea" class="input-group">
+                                <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type_msg" required/>
+								<div class="input-group-append">
+									<button type="submit" id="send" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	<script>
+		
+	function scrollToBottom() {
+		var chatContainer = $('.msg_card_body');
+		chatContainer.scrollTop(chatContainer[0].scrollHeight);	
+		}
+	$(document).ready(function () {
+	$(document).on("click", "#copy-answer", function () {
+    
+	// Get the bot's answer
+    var botAnswer = $("#messageFormeight .d-flex.justify-content-start:last .msg_cotainer").text().trim();
+
+    // Create a temporary element to hold the text
+    var tempElement = document.createElement('textarea');
+    tempElement.value = botAnswer;
+    document.body.appendChild(tempElement);
+
+    // Select the text in the temporary element
+    tempElement.select();
+    tempElement.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text to the clipboard
+    document.execCommand('copy');
+
+    // Remove the temporary element
+    document.body.removeChild(tempElement);
+
+    // You can provide user feedback, e.g., by changing the icon color
+    $(this).css("color", "green");
+
+    // Reset the color after a brief period
+    setTimeout(function() {
+      $("#copy-answer").css("color", '');
+    }, 1000);
+  }); 
+
+
+					
+ // Store the original form HTML
+ var originalFormHtml = $("#feedbackArea").html();
+ 
+
+
+ 
+$('#exampleModal').on('show.bs.modal', function () {
+	// Reset the form fields when the modal is shown
+	$("#comment").val('');
+
+	// Clear the success message when the modal is shown
+	$("#successMessage").fadeOut();
+
+	// Replace the modal content with the original form HTML
+	$("#feedbackArea").html(originalFormHtml);
+});
+
+// Handle modal close event
+$('#exampleModal').on('hidden.bs.modal', function () {
+	// Reset the form fields when the modal is closed
+	$("#comment").val('');
+});
+   
+
+$(document).on("click", "#send[title='Download Chat']", function () { 
+ 
+        // Create a Blob (Binary Large Object) containing the conversation text
+        var blob = new Blob([outputMessage], { type: "text/plain" });
+
+        // Create a link element
+        var link = document.createElement("a");
+
+        // Set the download attribute with a filename
+        link.download = "chat_conversation.txt";
+
+        // Create a URL for the Blob and set it as the href attribute
+        link.href = window.URL.createObjectURL(blob);
+
+        // Append the link to the document
+        document.body.appendChild(link);
+
+        // Trigger a click on the link to start the download
+        link.click();
+
+        // Remove the link from the document
+        document.body.removeChild(link);
+    }); 
+   
+		// Store the original card body HTML
+		var originalCardBodyHtml = $("#messageFormeight").html();
+
+	 
+        // Handle click event on the "Clear Chat" button with the specific class
+        $(document).on("click", ".clear-chat-btn", function () {
+            // Reset the content of card-body to its original state
+            $("#messageFormeight").html(originalCardBodyHtml);
+			outputMessage=""
+        });
+ 
+		var outputMessage="";
+
+		$("#messageArea").on("submit", function(event) {
+					const date = new Date();
+					const hour = date.getHours();
+					const minute = date.getMinutes();
+					const str_time = hour+":"+minute;
+					var rawText = $("#text").val();
+					outputMessage = outputMessage + str_time + " User=> "+rawText + "\r\n" 
+
+					var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + rawText + '<span class="msg_time_send">'+ str_time + '</span></div><div class="img_cont_msg"><img src="{{ url_for("static", filename="img/user.jpg")}}" class="rounded-circle user_img_msg"></div></div>';
+					var dotsHtml= '<div id="dots" class="card-body msg_card_body"><div class="col-3"><div class="snippet" data-title="dot-flashing"><div class="stage"><div class="dot-flashing"></div>	</div></div></div>'
+
+					$("#text").val("");
+					$("#messageFormeight").append(userHtml);
+					$("#messageFormeight").append(dotsHtml);
+					scrollToBottom();
+
+					$.ajax({
+						data: {
+							msg: rawText,	
+							dotsHtml: dotsHtml
+						},
+						type: "POST",
+						url: "./get",
+					}).done(function(data) {
+
+						outputMessage = outputMessage + str_time + " DHLChatBot=> "+data + "\r\n" 
+						var botHtml = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="{{ url_for("static", filename="img/robot.jpg")}}" class="rounded-circle user_img_msg"></div><div class="msg_cotainer">' + data+ '<span class="msg_time">' + str_time + '</span></div><i id="copy-answer" class="far fa-copy "></i></div>';
+						
+						$("#messageFormeight").append($.parseHTML(botHtml)); 
+						$("#dots").remove();
+						scrollToBottom();
+						
+					});
+					event.preventDefault();
+				});
+			});
+
+		
+		</script>
+        <script src="{{url_for('static', filename='js/matrix.js')}}"></script>
+    </body>
+</html>

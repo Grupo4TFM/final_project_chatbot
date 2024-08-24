@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run chatbot/chatbot.py
+web: web: gunicorn chatbot/chatbot.py
