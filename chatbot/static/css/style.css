@@ -1,0 +1,401 @@
+body{
+	height: 100%;
+	margin: 0;	
+	height: 100vh;
+	width: 100vw;
+}
+
+/* Ensure the container takes up the full viewport or any specific size you want */
+.stage {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Adjust as needed */
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: lightgray; /* Optional, just for visibility */
+}
+
+.overlay {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust the centering */
+    /*background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    z-index: 10; /* Ensure it's above the canvas */
+}
+
+
+html{
+	height: 100%;
+	margin: 0;
+}
+.chat{
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.card{
+	height: 90vh;
+	border: none;
+	/* background-color: rgba(0,0,0,0.4) ; */
+}
+.contacts_body{
+	padding:  0.75rem 0 ;
+	overflow-y: auto;
+	white-space: nowrap;
+}
+.msg_card_body{
+	overflow-y: auto;
+	background-color: black;
+	color: #4cd137;
+}
+.card-header{
+	border-radius: 15px 15px 0 0 ;
+	border-bottom: 0 ;
+	background-color: black;
+	border-style: solid;
+	border: #4cd137;
+}
+.card-footer{
+	border-radius: 0 0 15px 15px ;
+	background-color: black;
+	border-style: solid;
+	border: #4cd137;
+	flex-direction: row;
+    display: flex;
+}
+.container{
+	align-content: center;
+}
+.search{
+	border-radius: 15px 0 0 15px ;
+	background-color: rgba(0,0,0,0.3) ;
+	border:0 ;
+	color:white ;
+}
+.search:focus{
+	box-shadow:none ;
+	outline:0px ;
+}
+.type_msg{
+	background-color: black;
+	border:0 ;
+	color: #4cd137;
+	height: 60px ;
+	overflow-y: auto;
+	border: 1px solid #4cd137;
+}
+.type_msg:focus{
+	color: #4cd137;
+	box-shadow:none ;
+	background-color: black;
+	outline:0px ;
+	border: 1px solid #4cd137;
+}
+.attach_btn{
+	border-radius: 15px 0 0 15px ;
+	background-color: rgba(0,0,0,0.3) ;
+	border:0 ;
+	color: white ;
+	cursor: pointer;
+}
+.send_btn{
+	border-radius: 0 15px 15px 0 ;
+	background-color: #4cd137	;
+	border:0 ;
+	color: black	;
+	cursor: pointer;
+}
+  
+.button-action{
+
+	margin: 0px 5px;
+    height: 60px;
+	background-color: black;
+    border: 0;
+    color: white;
+    cursor: pointer;
+
+
+}
+
+.button-action:last-of-type {
+	margin: 0px 10px 0px 5px; 
+
+}
+
+.search_btn{
+	border-radius: 0 15px 15px 0 ;
+	background-color: rgba(0,0,0,0.3) ;
+	border:0 ;
+	color: white ;
+	cursor: pointer;
+}
+.contacts{
+	list-style: none;
+	padding: 0;
+}
+.contacts li{
+	width: 100% ;
+	padding: 5px 10px;
+	margin-bottom: 15px ;
+}
+.active{
+	background-color: rgba(0,0,0,0.3);
+}
+.user_img{
+	height: 110px;
+	width: 400px;
+	
+}
+.ade{
+	color: #4cd137;
+}
+.user_img_msg{
+	height: 40px;
+	width: 40px;
+	border:1.5px solid #4cd137;
+
+}
+.img_cont{
+	position: relative;
+	height:100px;
+	width: 600px;
+}
+.img_cont_msg{
+	height: 40px;
+	width: 40px;
+}
+.online_icon{
+	position: absolute;
+	height: 15px;
+	width:15px;
+	background-color: #4cd137;
+	border-radius: 50%;
+	bottom: 0.2em;
+	right: 0.4em;
+	border:1.5px solid #4cd137;
+}
+.offline{
+	background-color: #c23616 ;
+}
+.user_info{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 15px;
+	color: #4cd137;
+	border-color: #4cd137;
+}
+.user_info span{
+	font-size: 20px;
+	color: black;
+}
+.user_info p{
+	font-size: 16px;
+	color: black;
+}
+.video_cam{
+	margin-left: 50px;
+	margin-top: 5px;
+}
+.video_cam span{
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+	margin-right: 20px;
+}
+.msg_cotainer{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 10px;
+	border-radius: 25px;
+	background-color: #004987;
+	padding: 10px;
+	position: relative;
+	color: white;
+}
+.msg_cotainer_send{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-right: 10px;
+	border-radius: 25px;
+	background-color: white;
+	border: 1px solid #004987;
+	color: #004987;
+	padding: 10px;
+	position: relative;
+}
+.msg_time{
+	position: absolute;
+	left: 0;
+	bottom: -15px;
+	color: rgba(255,255,255,0.5);
+	font-size: 10px;
+}
+.msg_time_send{
+	position: absolute;
+	right:0;
+	bottom: -15px;
+	color: rgba(255,255,255,0.5);
+	font-size: 10px;
+}
+.msg_head{
+	position: relative;
+}
+#action_menu_btn{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	color: white;
+	cursor: pointer;
+	font-size: 20px;
+}
+.action_menu{
+	z-index: 1;
+	position: absolute;
+	padding: 15px 0;
+	background-color: rgba(0,0,0,0.5);
+	color: white;
+	border-radius: 15px;
+	top: 30px;
+	right: 15px;
+	display: none;
+}
+.action_menu ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.action_menu ul li{
+	width: 100%;
+	padding: 10px 15px;
+	margin-bottom: 5px;
+}
+.action_menu ul li i{
+	padding-right: 10px;
+}
+.action_menu ul li:hover{
+	cursor: pointer;
+	background-color: rgba(0,0,0,0.2);
+}
+@media(max-width: 576px){
+	.contacts_card{
+	margin-bottom: 15px ;
+}
+}
+
+/**
+ * ==============================================
+ * Dot Flashing
+ * ==============================================
+ */
+ .dot-flashing {
+	position: relative;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: #004987;
+	color: #004987;
+	animation: dot-flashing 1s infinite linear alternate;
+	animation-delay: 0.5s;
+  }
+  .dot-flashing::before, .dot-flashing::after {
+	content: "";
+	display: inline-block;
+	position: absolute;
+	top: 0;
+  }
+  .dot-flashing::before {
+	left: -15px;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: #004987;
+	color: #004987;
+	animation: dot-flashing 1s infinite alternate;
+	animation-delay: 0s;
+  }
+  .dot-flashing::after {
+	left: 15px;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: #004987;
+	color: #004987;
+	animation: dot-flashing 1s infinite alternate;
+	animation-delay: 1s;
+  }
+  
+  @keyframes dot-flashing {
+	0% {
+	  background-color: #004987;
+	}
+	50%, 100% {
+	  background-color: #C5DFEF	  ;
+	}
+  }
+
+/* Star Rating Styles */
+.rating-container {
+    display: flex;
+}
+
+.question{
+
+	display: table-cell;
+	width: 800px; 
+
+	padding: 5px;
+    margin: 5px;
+} 
+
+.stars{
+
+	display: flex;
+	align-items: center;
+	padding: 10px;
+} 
+   
+
+.rating-container h4 {
+    margin-bottom: 10px;
+}
+
+.fa-star {
+    font-size: 24px;
+    margin: 0 5px;
+    cursor: pointer;
+    display: inline-block; /* Display as inline block to have the border around the star shape */
+	background-clip: content-box; /* Clip the background to the content box */
+
+}
+
+.star-filled {
+    color:#F58220; /* Yellow fill for filled stars */
+}
+
+.star-empty {
+    color: black; /* White fil l for empty stars */
+}
+
+.modal-header{
+	background-color: #C5DFEF;
+}
+
+.buttons{
+	text-align: center;
+}
+
+.fa-copy{
+	display: flex;
+    align-items: flex-end;
+    margin-left: 10px;
+	color:#F58220;
+	cursor: pointer;
+}
